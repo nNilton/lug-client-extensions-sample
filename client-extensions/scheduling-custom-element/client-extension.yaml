@@ -1,0 +1,16 @@
+assemble:
+  - from: build/static
+    into: static
+
+scheduling-custom-element:
+  cssURLs:
+        - css/main.*.css
+  friendlyURLMapping: scheduling-custom-element
+  htmlElementName: scheduling-custom-element
+  instanceable: false
+  name: Scheduling Custom Element
+  portletCategoryName: category.client-extensions
+  type: customElement
+  urls:
+        - js/main.*.js
+  useESM: true
