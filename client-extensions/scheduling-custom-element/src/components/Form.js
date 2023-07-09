@@ -56,7 +56,10 @@ const Form = ({getSchedules, onEdit, setOnEdit}) => {
 
         const schedule = ref.current;
 
-        if(
+        console.log(schedule.email)
+        console.log(schedule.email.value)
+
+        if( 
             !schedule.name.value
         ){
             return toast.warn("Fill up all fields")
@@ -68,14 +71,16 @@ const Form = ({getSchedules, onEdit, setOnEdit}) => {
                     name: schedule.name.value
                 })
                 .then(({data}) => toast.success(data))
-                .catch(({data}) => toast.error(data))
+                .catch(({data}) => toast.error(data));
         } else{
             await axios
-                .post("localhost:8080", {
-                    name: schedule.name.value
-                })
-                .then(({data}) => toast.success(data))
-                .catch(({data}) => toast.error(data))
+                .post("http://localhost:8080/o/c/schedules/", {
+                    name: schedule.name.value,
+                    email: schedule.email.value    
+                },
+                {headers: { Authorization: 'Basic ' + btoa("test@liferay.com:test") }}
+                )
+                .catch(({data}) => console.log(data));
         }
 
         schedule.name.value = "";
@@ -88,23 +93,23 @@ const Form = ({getSchedules, onEdit, setOnEdit}) => {
     return(
         <FormContainer ref={ref} onSubmit={handleSubmit}>
             <InputArea>
-                <Label>Nome</Label>
-                <Input name = "nome"/>
+                <Label>name</Label>
+                <Input name = "name"/>
             </InputArea>
 
             <InputArea>
                 <Label>email</Label>
-                <Input email = "nome"/>
+                <Input name = "email"/>
             </InputArea>
 
             <InputArea>
                 <Label>phone number</Label>
-                <Input phone = "nome"/>
+                <Input name = "phone"/>
             </InputArea>
 
             <InputArea>
                 <Label>birth date</Label>
-                <Input date = "nome" type="date"/>
+                <Input name = "date" type="date"/>
             </InputArea>
             
             <Button type="submit">Save</Button>

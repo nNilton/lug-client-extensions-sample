@@ -48,7 +48,9 @@ const Grid = ({schedules, setSchedules, setOnEdit}) =>{
 
     const handleDelete = async (id) => {
         axios
-        .delete()
+        .delete("http://localhost:8080/o/c/schedules/" + id, 
+            {headers: { Authorization: 'Basic ' + btoa("test@liferay.com:test") }}
+            )
         .then(({data}) => {
             const newArray = schedules.filter((schedule) => schedule.id !== id);
 
