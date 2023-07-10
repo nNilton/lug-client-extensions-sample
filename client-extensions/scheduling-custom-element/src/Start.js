@@ -19,38 +19,39 @@ const Container = styled.div`
 
 `;
 
+export const baseURL = "http://localhost:8080/o/c/rayhealths/";
+
 const Title = styled.h2``;
 
 
 function Start() {
-const [schedules, setSchedules] = useState([]);
+const [exams, setExams] = useState([]);
 const [onEdit, setOnEdit] = useState(null);
 
-const getSchedules = async () => {
+const getExams = async () => {
   try{
-    const res = await axios.get("http://localhost:8080/o/c/schedules/", { 'headers': { 'Authorization': 'Basic ' + btoa("test@liferay.com:test") } });
+    const res = await axios.get(baseURL, { 'headers': { 'Authorization': 'Basic ' + btoa("test@liferay.com:test") } });
     console.log(res);
-    setSchedules(res.data.items)
+    setExams(res.data.items)
   }catch(error){
     toast.error(error);
   }
 }
 
 useEffect(() => {
-  getSchedules();
-}, [setSchedules])
+  getExams();
+}, [setExams])
 
   return (
     <div className="App">
       <Container>
         <Title>
-          Usuários
+          Your Exams
         </Title>
-        <Form onEdit={onEdit} setOnEdit={setOnEdit} getSchedules={getSchedules}/>
-        <Grid setOnEdit={setOnEdit} schedules={schedules} setSchedules={setSchedules}/>
+        <Form onEdit={onEdit} setOnEdit={setOnEdit} getExams={getExams}/>
+        <Grid setOnEdit={setOnEdit} exams={exams} setExams={setExams}/>
       </Container>
       <ToastContainer autoClose={3000} position={toast.POSITION.TOP_CENTER} />
-      {/* <GlobalStyle /> */}
     </div>
   );
 }

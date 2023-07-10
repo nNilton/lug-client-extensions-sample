@@ -2,6 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import { FaTrash, FaEdit } from "react-icons/fa";
+import { baseURL } from "../Start";
 
 const Table = styled.table`
     width: 100%;
@@ -40,7 +41,7 @@ export const Td = styled.td`
   }
 `;
 
-const Grid = ({schedules, setSchedules, setOnEdit}) =>{
+const Grid = ({exams, setExams, setOnEdit}) =>{
 
     const handleEdit = (item) => {
         setOnEdit(item);
@@ -48,42 +49,43 @@ const Grid = ({schedules, setSchedules, setOnEdit}) =>{
 
     const handleDelete = async (id) => {
         axios
-        .delete("http://localhost:8080/o/c/schedules/" + id, 
+        .delete(baseURL + id, 
             {headers: { Authorization: 'Basic ' + btoa("test@liferay.com:test") }}
             )
         .then(({data}) => {
-            const newArray = schedules.filter((schedule) => schedule.id !== id);
+            const newArray = exams.filter((exam) => exam.id !== id);
 
-            setSchedules(newArray);
-            toast.success(data);
+            setExams(newArray);
         })
         .catch(({data}) => toast.error(data));
 
         setOnEdit(null);
     }
 
+    console.log(exams);
+
     return (
         <Table>
             <Thead>
                 <Tr>
                     <Th>
-                        Nome
+                        Exame
                     </Th>
-                    <Th>Email</Th>
-                    <Th>FFF</Th>
+                    <Th>Numero da Carteirinha</Th>
+                    <Th></Th>
                     <Th></Th>
                 </Tr>
             </Thead>
             <Tbody>
-                {schedules.map(schedule => (
-                    <Tr key={schedule.id}>
-                        <Td width="30%">{schedule.name}</Td>
-                        <Td width="30%">{schedule.email}</Td>
+                {exams.map(exam => (
+                    <Tr key={exam.id}>
+                        <Td width="30%">{exam.exame.name}</Td>
+                        <Td width="30%">{exam.numeroDaCarteirinha}</Td>
                         <Td alignCenter width="5%">
-                            <FaEdit onClick={() => handleEdit(schedule)} />
+                            <FaEdit onClick={() => handleEdit(exam)} />
                         </Td>
                         <Td alignCenter width="5%">
-                            <FaTrash onClick={() => handleDelete(schedule.id)} />
+                            <FaTrash onClick={() => handleDelete(exam.id)} />
                         </Td>
                     </Tr>
                 ))}

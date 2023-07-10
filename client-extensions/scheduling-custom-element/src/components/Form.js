@@ -2,6 +2,7 @@ import axios from "axios";
 import React , {useEffect, useRef} from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import { baseURL } from "../Start";
 
 const FormContainer = styled.form`
     display: flex;
@@ -39,28 +40,25 @@ const Button = styled.button`
     height: 42px;
 `;
 
-const Form = ({getSchedules, onEdit, setOnEdit}) => {
+const Form = ({getExams, onEdit, setOnEdit}) => {
     const ref = useRef();
 
     useEffect( () => {
         if(onEdit){
-            const schedule = ref.current;
+            const exam = ref.current;
 
-            schedule.name.value = onEdit.name;
-            schedule.email.value = onEdit.email;
+            exam.exame.value = onEdit.exame;
+            exam.numeroDaCarteirinha.value = onEdit.numeroDaCarteirinha;
         }
     }, [onEdit])
 
     const handleSubmit = async (item) => {
         item.preventDefault();
 
-        const schedule = ref.current;
-
-        console.log(schedule.email)
-        console.log(schedule.email.value)
+        const exam = ref.current;
 
         if( 
-            !schedule.name.value
+            !exam.exame.value
         ){
             return toast.warn("Fill up all fields")
         }
@@ -68,47 +66,43 @@ const Form = ({getSchedules, onEdit, setOnEdit}) => {
         if(onEdit){
             await axios
                 .put("localhost:8080", {
-                    name: schedule.name.value
+                    name: exam.exame.value
                 })
                 .then(({data}) => toast.success(data))
                 .catch(({data}) => toast.error(data));
         } else{
             await axios
-                .post("http://localhost:8080/o/c/schedules/", {
-                    name: schedule.name.value,
-                    email: schedule.email.value    
+                .post(baseURL, {
+                    exame: {
+                        key: exam.exame.value
+                    } 
                 },
                 {headers: { Authorization: 'Basic ' + btoa("test@liferay.com:test") }}
                 )
                 .catch(({data}) => console.log(data));
         }
 
-        schedule.name.value = "";
-        schedule.email.value = "";
+        exam.exame.value = "";
+        exam.numeroDaCarteirinha.value = "";
 
         setOnEdit(null);
-        getSchedules();
+        getExams();
     };
 
     return(
         <FormContainer ref={ref} onSubmit={handleSubmit}>
             <InputArea>
-                <Label>name</Label>
-                <Input name = "name"/>
+                <Label>Exame</Label>
+                <Input name = "exame"/>
             </InputArea>
 
             <InputArea>
-                <Label>email</Label>
-                <Input name = "email"/>
+                <Label>Numero da Carteirinha</Label>
+                <Input name = "numeroDaCarteirinha"/>
             </InputArea>
 
             <InputArea>
-                <Label>phone number</Label>
-                <Input name = "phone"/>
-            </InputArea>
-
-            <InputArea>
-                <Label>birth date</Label>
+                <Label>Data de Realização</Label>
                 <Input name = "date" type="date"/>
             </InputArea>
             
