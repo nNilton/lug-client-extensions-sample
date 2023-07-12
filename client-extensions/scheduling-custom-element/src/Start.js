@@ -46,7 +46,7 @@ useEffect(() => {
     <div className="App">
       <Container>
         <Title>
-          Your Exams
+          RayHealth
         </Title>
         <Form onEdit={onEdit} setOnEdit={setOnEdit} getExams={getExams}/>
         <Grid setOnEdit={setOnEdit} exams={exams} setExams={setExams}/>

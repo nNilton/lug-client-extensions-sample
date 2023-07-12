@@ -3,6 +3,8 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { baseURL } from "../Start";
+import moment from "moment";
+import 'moment/locale/pt-br'
 
 const Table = styled.table`
     width: 100%;
@@ -68,25 +70,21 @@ const Grid = ({exams, setExams, setOnEdit}) =>{
         <Table>
             <Thead>
                 <Tr>
-                    <Th>
-                        Exame
-                    </Th>
-                    <Th>Numero da Carteirinha</Th>
-                    <Th></Th>
-                    <Th></Th>
+                    <Th>Exame</Th>
+                    <Th>Numero do Plano</Th>
+                    <Th>Data de Realização</Th>
+                    <Th>Status</Th>
+                    <Th>Resultado</Th>
                 </Tr>
             </Thead>
             <Tbody>
                 {exams.map(exam => (
                     <Tr key={exam.id}>
-                        <Td width="30%">{exam.exame.name}</Td>
-                        <Td width="30%">{exam.numeroDaCarteirinha}</Td>
-                        <Td alignCenter width="5%">
-                            <FaEdit onClick={() => handleEdit(exam)} />
-                        </Td>
-                        <Td alignCenter width="5%">
-                            <FaTrash onClick={() => handleDelete(exam.id)} />
-                        </Td>
+                        <Td width="20%">{exam.examName.name}</Td>
+                        <Td width="20%">{exam.number}</Td>
+                        <Td width="20%">{moment(exam.examDate).locale('pt-br').format('L')}</Td>
+                        <Td width="20%">{exam.examStatus.name}</Td>
+                        <Td width="20%" href={exam?.result?.link?.href}>{exam?.result?.link?.label}</Td>
                     </Tr>
                 ))}
             </Tbody>

@@ -58,32 +58,29 @@ const Form = ({getExams, onEdit, setOnEdit}) => {
         const exam = ref.current;
 
         if( 
-            !exam.exame.value
+            !exam.examName.value
         ){
             return toast.warn("Fill up all fields")
         }
 
-        if(onEdit){
-            await axios
-                .put("localhost:8080", {
-                    name: exam.exame.value
-                })
-                .then(({data}) => toast.success(data))
-                .catch(({data}) => toast.error(data));
-        } else{
-            await axios
-                .post(baseURL, {
-                    exame: {
-                        key: exam.exame.value
-                    } 
+        await axios
+            .post(baseURL, {
+                examName: {
+                    key: exam.examName.value
                 },
-                {headers: { Authorization: 'Basic ' + btoa("test@liferay.com:test") }}
-                )
-                .catch(({data}) => console.log(data));
-        }
+                number: exam.number.value,
+                examStatus:{
+                    key: "pendente"
+                },
+                examDate: exam.date.value
+            },
+            {headers: { Authorization: 'Basic ' + btoa("test@liferay.com:test") }}
+            )
+            .catch(({data}) => console.log(data));
 
-        exam.exame.value = "";
-        exam.numeroDaCarteirinha.value = "";
+        exam.examName.value = "";
+        exam.number.value = "";
+        exam.date.value = "";
 
         setOnEdit(null);
         getExams();
@@ -93,12 +90,12 @@ const Form = ({getExams, onEdit, setOnEdit}) => {
         <FormContainer ref={ref} onSubmit={handleSubmit}>
             <InputArea>
                 <Label>Exame</Label>
-                <Input name = "exame"/>
+                <Input name = "examName"/>
             </InputArea>
 
             <InputArea>
-                <Label>Numero da Carteirinha</Label>
-                <Input name = "numeroDaCarteirinha"/>
+                <Label>Numero do Plano</Label>
+                <Input name = "number"/>
             </InputArea>
 
             <InputArea>
