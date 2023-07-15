@@ -1,0 +1,3 @@
+liferay {
+    deployDir = file("/home/me/dev/bundles/master/osgi/client-extensions")
+}

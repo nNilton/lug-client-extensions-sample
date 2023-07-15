@@ -1,0 +1,169 @@
+{
+	"actions": {
+		"create": {
+			"href": "http://localhost:8080/o/headless-admin-list-type/v1.0/list-type-definitions",
+			"method": "POST"
+		},
+		"createBatch": {
+			"href": "/o/headless-batch-engine/v1.0/import-task/com.liferay.headless.admin.list.type.dto.v1_0.ListTypeDefinition",
+			"method": "POST"
+		}
+	},
+	"configuration": {
+		"className": "com.liferay.headless.admin.list.type.dto.v1_0.ListTypeDefinition",
+		"companyId": 0,
+		"parameters": {
+			"containsHeaders": "true",
+			"createStrategy": "UPSERT",
+			"onErrorFail": "false",
+			"taskItemDelegateName": "DEFAULT",
+			"updateStrategy": "UPDATE"
+		},
+		"userId": 0,
+		"version": "v1.0"
+	},
+	"facets": [
+	],
+	"items": [
+		{
+        "dateCreated": "2023-07-09T22:24:34Z",
+        "dateModified": "2023-07-09T22:27:13Z",
+        "externalReferenceCode": "4b165592-837d-3630-0023-e9bf751898b9",
+        "id": 34645,
+        "listTypeEntries": [
+            {
+                "dateCreated": "2023-07-09T22:25:11Z",
+                "dateModified": "2023-07-09T22:27:13Z",
+                "externalReferenceCode": "06015944-b80f-f6b2-f976-f7f82446ee73",
+                "id": 34646,
+                "name": "Covid",
+                "key": "covid",
+                "name_i18n": {
+                    "en-US": "Covid"
+                }
+            },
+            {
+                "dateCreated": "2023-07-09T22:25:41Z",
+                "dateModified": "2023-07-09T22:27:13Z",
+                "externalReferenceCode": "c181cd8f-0372-3659-86e4-e9362d64108c",
+                "id": 34648,
+                "name": "Hemograma",
+                "key": "hemograma",
+                "name_i18n": {
+                    "en-US": "Hemograma"
+                }
+            },
+            {
+                "dateCreated": "2023-07-09T22:26:20Z",
+                "dateModified": "2023-07-09T22:27:13Z",
+                "externalReferenceCode": "bcc601aa-1ab8-7f05-064a-17c859301592",
+                "id": 34649,
+                "name": "Glicemia",
+                "key": "glicemia",
+                "name_i18n": {
+                    "en-US": "Glicemia"
+                }
+            },
+            {
+                "dateCreated": "2023-07-09T22:26:30Z",
+                "dateModified": "2023-07-09T22:27:13Z",
+                "externalReferenceCode": "11d7ed7a-ae4e-ccca-a8ea-657b66abdf21",
+                "id": 34650,
+                "name": "Colesterol",
+                "key": "colesterol",
+                "name_i18n": {
+                    "en-US": "Colesterol"
+                }
+            },
+            {
+                "dateCreated": "2023-07-09T22:27:02Z",
+                "dateModified": "2023-07-09T22:27:13Z",
+                "externalReferenceCode": "ae52550c-a998-461e-0fcd-1a039d1cfb01",
+                "id": 34651,
+                "key": "eletrocardiograma",
+                "name": "Eletrocardiograma",
+                "name_i18n": {
+                    "en-US": "Eletrocardiograma"
+                }
+            },
+            {
+                "dateCreated": "2023-07-09T22:27:11Z",
+                "dateModified": "2023-07-09T22:27:13Z",
+                "externalReferenceCode": "a832c6d8-a41e-a08e-dd47-217a2d48bbc8",
+                "id": 34652,
+                "name": "Ecocardiograma",
+                "key": "ecocardiograma",
+                "name_i18n": {
+                    "en-US": "Ecocardiograma"
+                }
+            }
+        ],
+        "name": "Exames",
+        "name_i18n": {
+            "en-US": "Exames"
+        }
+    },
+    {
+        "dateCreated": "2023-07-09T22:29:33Z",
+        "dateModified": "2023-07-09T22:30:15Z",
+        "externalReferenceCode": "4650a125-1eaf-fc15-eb37-8ea4d65a9007",
+        "id": 34660,
+        "listTypeEntries": [
+            {
+                "dateCreated": "2023-07-09T22:29:45Z",
+                "dateModified": "2023-07-09T22:30:15Z",
+                "externalReferenceCode": "48f151b4-e2f3-2f06-fd27-4200717f4f26",
+                "id": 34661,
+                "name": "Pendente",
+                "key": "pendente",
+                "name_i18n": {
+                    "en-US": "Pendente"
+                }
+            },
+            {
+                "dateCreated": "2023-07-09T22:29:55Z",
+                "dateModified": "2023-07-09T22:30:15Z",
+                "externalReferenceCode": "3e054972-1a7f-7ec8-e98d-7c22d7d36275",
+                "id": 34662,
+                "name": "Confirmado",
+                "key": "confirmado",
+                "name_i18n": {
+                    "en-US": "Confirmado"
+                }
+            },
+            {
+                "dateCreated": "2023-07-09T22:30:01Z",
+                "dateModified": "2023-07-09T22:30:15Z",
+                "externalReferenceCode": "786ec5ed-2ba6-0c7b-edf4-b406126a6c41",
+                "id": 34663,
+                "name": "Finalizado",
+                "key": "finalizado",
+                "name_i18n": {
+                    "en-US": "Finalizado"
+                }
+            },
+            {
+                "dateCreated": "2023-07-09T22:30:10Z",
+                "dateModified": "2023-07-09T22:30:15Z",
+                "externalReferenceCode": "abcea139-ae0c-4079-c3f8-b97c78e8c889",
+                "id": 34664,
+                "key": "cancelado",
+                "name": "Cancelado",
+                "name_i18n": {
+                    "en-US": "Cancelado"
+                }
+            }
+        ],
+        "name": "Resolução",
+        "name_i18n": {
+            "en-US": "Resolução"
+        }
+    }
+
+
+	],
+	"lastPage": 1,
+	"page": 1,
+	"pageSize": 20,
+	"totalCount": 5
+}
