@@ -84,7 +84,7 @@ const Grid = ({exams, setExams, setOnEdit}) =>{
                         <Td width="20%">{exam.number}</Td>
                         <Td width="20%">{moment(exam.examDate).locale('pt-br').format('L')}</Td>
                         <Td width="20%">{exam.examStatus.name}</Td>
-                        <Td width="20%" href={exam?.result?.link?.href}>{exam?.result?.link?.label}</Td>
+                        <Td width="20%"><a href={exam?.result?.link?.href}>{exam?.result?.link?.label}</a></Td>
                     </Tr>
                 ))}
             </Tbody>
