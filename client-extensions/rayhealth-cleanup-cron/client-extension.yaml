@@ -1,0 +1,9 @@
+assemble:
+  - fromTask: bootJar
+exam-cleanup-oauth-application-headless-server:
+  .serviceAddress: localhost:8080
+  .serviceScheme: http
+  name: Exam Cleanup Oauth Application Headless Server
+  scopes:
+    - C_RayHealth.everything
+  type: oAuthApplicationHeadlessServer
