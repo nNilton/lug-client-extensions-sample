@@ -20,308 +20,169 @@
 	},
 	"items": [
 		{
-			"accountEntryRestricted": false,
-			"accountEntryRestrictedObjectFieldName": "",
-			"actions": {
-			  "permissions": {
-				"method": "PATCH",
-				"href": "http://localhost:8080/o/object-admin/v1.0/object-definitions/35316"
-			  },
-			  "get": {
-				"method": "GET",
-				"href": "http://localhost:8080/o/object-admin/v1.0/object-definitions/35316"
-			  },
-			  "update": {
-				"method": "PUT",
-				"href": "http://localhost:8080/o/object-admin/v1.0/object-definitions/35316"
-			  },
-			  "delete": {
-				"method": "DELETE",
-				"href": "http://localhost:8080/o/object-admin/v1.0/object-definitions/35316"
-			  }
+			"accountEntryRestricted":false,
+			"accountEntryRestrictedObjectFieldName":"",
+			"active":true,
+			"defaultLanguageId":"en_US",
+			"enableCategorization":true,
+			"enableComments":false,
+			"enableObjectEntryHistory":false,
+			"externalReferenceCode":"OBJECT-DEFINITION-1",
+			"label":{
+			   "en_US":"RayHealth"
 			},
-			"active": true,
-			"dateCreated": "2023-07-15T00:57:01Z",
-			"dateModified": "2023-07-15T00:59:58Z",
-			"defaultLanguageId": "en_US",
-			"enableCategorization": true,
-			"enableComments": false,
-			"enableObjectEntryHistory": false,
-			"externalReferenceCode": "8d028ba3-670f-da06-619f-c3aafd2dee90",
-			"id": 35316,
-			"label": {
-			  "en_US": "RayHealth"
-			},
-			"name": "RayHealth",
-			"objectActions": [],
-			"objectFields": [
-			  {
-				"DBType": "Date",
-				"businessType": "Date",
-				"externalReferenceCode": "6b4ebfbf-a3da-05ed-afc7-30a569de4c4e",
-				"id": 35320,
-				"indexed": false,
-				"indexedAsKeyword": false,
-				"indexedLanguageId": "",
-				"label": {
-				  "en_US": "Create Date"
-				},
-				"listTypeDefinitionId": 0,
-				"name": "createDate",
-				"objectFieldSettings": [],
-				"readOnly": "true",
-				"readOnlyConditionExpression": "",
-				"required": false,
-				"state": false,
-				"system": true,
-				"type": "Date"
-			  },
-			  {
-				"DBType": "String",
-				"businessType": "Text",
-				"externalReferenceCode": "85c45fb1-c8d2-a792-5631-c105a31a26be",
-				"id": 35318,
-				"indexed": false,
-				"indexedAsKeyword": false,
-				"indexedLanguageId": "",
-				"label": {
-				  "en_US": "Author"
-				},
-				"listTypeDefinitionId": 0,
-				"name": "creator",
-				"objectFieldSettings": [],
-				"readOnly": "true",
-				"readOnlyConditionExpression": "",
-				"required": false,
-				"state": false,
-				"system": true,
-				"type": "String"
-			  },
-			  {
-				"DBType": "Date",
-				"businessType": "Date",
-				"externalReferenceCode": "1cb58b73-2458-9363-aa56-003e7b4a1767",
-				"id": 35335,
-				"indexed": true,
-				"indexedAsKeyword": false,
-				"indexedLanguageId": "",
-				"label": {
-				  "en_US": "Data de Realização"
-				},
-				"listTypeDefinitionId": 0,
-				"name": "examDate",
-				"objectFieldSettings": [],
-				"readOnly": "false",
-				"readOnlyConditionExpression": "",
-				"required": false,
-				"state": false,
-				"system": false,
-				"type": "Date"
-			  },
-			  {
-				"DBType": "String",
-				"businessType": "Picklist",
-				"externalReferenceCode": "400eb398-05f0-a77b-78b0-433a7a2b0e27",
-				"id": 35331,
-				"indexed": true,
-				"indexedAsKeyword": false,
-				"indexedLanguageId": "en_US",
-				"label": {
-				  "en_US": "Exame"
-				},
-				"listTypeDefinitionExternalReferenceCode": "4b165592-837d-3630-0023-e9bf751898b9",
-				"listTypeDefinitionId": 34645,
-				"name": "examName",
-				"objectFieldSettings": [],
-				"readOnly": "false",
-				"readOnlyConditionExpression": "",
-				"required": false,
-				"state": false,
-				"system": false,
-				"type": "String"
-			  },
-			  {
-				"DBType": "String",
-				"businessType": "Picklist",
-				"externalReferenceCode": "9877fab1-3e4d-918f-8928-996cf1db1a45",
-				"id": 35333,
-				"indexed": true,
-				"indexedAsKeyword": false,
-				"indexedLanguageId": "en_US",
-				"label": {
-				  "en_US": "Status"
-				},
-				"listTypeDefinitionExternalReferenceCode": "4650a125-1eaf-fc15-eb37-8ea4d65a9007",
-				"listTypeDefinitionId": 34660,
-				"name": "examStatus",
-				"objectFieldSettings": [],
-				"readOnly": "false",
-				"readOnlyConditionExpression": "",
-				"required": false,
-				"state": false,
-				"system": false,
-				"type": "String"
-			  },
-			  {
-				"DBType": "String",
-				"businessType": "Text",
-				"externalReferenceCode": "eef35c3e-a66f-6f62-9ff1-6be1a897d310",
-				"id": 35322,
-				"indexed": false,
-				"indexedAsKeyword": false,
-				"indexedLanguageId": "",
-				"label": {
-				  "en_US": "External Reference Code"
-				},
-				"listTypeDefinitionId": 0,
-				"name": "externalReferenceCode",
-				"objectFieldSettings": [],
-				"readOnly": "false",
-				"readOnlyConditionExpression": "",
-				"required": false,
-				"state": false,
-				"system": true,
-				"type": "String"
-			  },
-			  {
-				"DBType": "Long",
-				"businessType": "LongInteger",
-				"externalReferenceCode": "caa88082-193f-1ba4-d20e-df50b5a504a8",
-				"id": 35324,
-				"indexed": true,
-				"indexedAsKeyword": true,
-				"indexedLanguageId": "",
-				"label": {
-				  "en_US": "ID"
-				},
-				"listTypeDefinitionId": 0,
-				"name": "id",
-				"objectFieldSettings": [],
-				"readOnly": "true",
-				"readOnlyConditionExpression": "",
-				"required": false,
-				"state": false,
-				"system": true,
-				"type": "Long"
-			  },
-			  {
-				"DBType": "Date",
-				"businessType": "Date",
-				"externalReferenceCode": "064e1d77-8505-f790-fa4a-6c0dc169fed5",
-				"id": 35326,
-				"indexed": false,
-				"indexedAsKeyword": false,
-				"indexedLanguageId": "",
-				"label": {
-				  "en_US": "Modified Date"
-				},
-				"listTypeDefinitionId": 0,
-				"name": "modifiedDate",
-				"objectFieldSettings": [],
-				"readOnly": "true",
-				"readOnlyConditionExpression": "",
-				"required": false,
-				"state": false,
-				"system": true,
-				"type": "Date"
-			  },
-			  {
-				"DBType": "Long",
-				"businessType": "LongInteger",
-				"externalReferenceCode": "6d94ca8d-8c5e-0ffc-cfc6-98d99492b9ae",
-				"id": 35337,
-				"indexed": true,
-				"indexedAsKeyword": false,
-				"indexedLanguageId": "",
-				"label": {
-				  "en_US": "Numero do Plano"
-				},
-				"listTypeDefinitionId": 0,
-				"name": "number",
-				"objectFieldSettings": [],
-				"readOnly": "false",
-				"readOnlyConditionExpression": "",
-				"required": false,
-				"state": false,
-				"system": false,
-				"type": "Long"
-			  },
-			  {
-				"DBType": "Long",
-				"businessType": "Attachment",
-				"externalReferenceCode": "bd01eba1-dd51-bcb8-8be9-6e75bc1e1e38",
-				"id": 35339,
-				"indexed": true,
-				"indexedAsKeyword": false,
-				"indexedLanguageId": "en_US",
-				"label": {
-				  "en_US": "Resultado"
-				},
-				"listTypeDefinitionId": 0,
-				"name": "result",
-				"objectFieldSettings": [
-				  {
-					"name": "acceptedFileExtensions",
-					"value": "jpeg, jpg, pdf, png"
+			"name":"RayHealth",
+			"objectFields":[
+			   {
+				  "DBType":"Date",
+				  "businessType":"Date",
+				  "externalReferenceCode":"2d3c870e-e477-8e17-e750-5a2690721f34",
+				  "id":34349,
+				  "indexed":true,
+				  "indexedAsKeyword":false,
+				  "indexedLanguageId":"",
+				  "label":{
+					 "en_US":"Data de Realização"
 				  },
-				  {
-					"name": "maximumFileSize",
-					"value": 100
+				  "listTypeDefinitionId":0,
+				  "name":"examDate",
+				  "objectFieldSettings":[
+				  ],
+				  "readOnly":"false",
+				  "readOnlyConditionExpression":"",
+				  "required":false,
+				  "state":false,
+				  "system":false,
+				  "type":"Date"
+			   },
+			   {
+				  "DBType":"String",
+				  "businessType":"Picklist",
+				  "externalReferenceCode":"f1fc9fe8-dc8d-e32f-2f3b-81cfc1f677a2",
+				  "indexed":true,
+				  "indexedAsKeyword":false,
+				  "indexedLanguageId":"en_US",
+				  "label":{
+					 "en_US":"Exame"
 				  },
-				  {
-					"name": "fileSource",
-					"value": "documentsAndMedia"
-				  }
-				],
-				"readOnly": "false",
-				"readOnlyConditionExpression": "",
-				"required": false,
-				"state": false,
-				"system": false,
-				"type": "Long"
-			  },
-			  {
-				"DBType": "String",
-				"businessType": "Text",
-				"externalReferenceCode": "b4d43b2b-8c21-c190-0968-917db30a90b1",
-				"id": 35328,
-				"indexed": false,
-				"indexedAsKeyword": false,
-				"indexedLanguageId": "",
-				"label": {
-				  "en_US": "Status"
-				},
-				"listTypeDefinitionId": 0,
-				"name": "status",
-				"objectFieldSettings": [],
-				"readOnly": "true",
-				"readOnlyConditionExpression": "",
-				"required": false,
-				"state": false,
-				"system": true,
-				"type": "String"
-			  }
+				  "listTypeDefinitionExternalReferenceCode":"LIST-TYPE-1",
+				  "name":"examName",
+				  "objectFieldSettings":[
+					 
+				  ],
+				  "readOnly":"false",
+				  "readOnlyConditionExpression":"",
+				  "required":false,
+				  "state":false,
+				  "system":false,
+				  "type":"String"
+			   },
+			   {
+				  "DBType":"String",
+				  "businessType":"Picklist",
+				  "externalReferenceCode":"ee0734af-e1f3-87ae-4b86-306dfcd13794",
+				  "indexed":true,
+				  "indexedAsKeyword":false,
+				  "indexedLanguageId":"en_US",
+				  "label":{
+					 "en_US":"Status"
+				  },
+				  "listTypeDefinitionExternalReferenceCode":"LIST-TYPE-2",
+				  "name":"examStatus",
+				  "objectFieldSettings":[
+					 
+				  ],
+				  "readOnly":"false",
+				  "readOnlyConditionExpression":"",
+				  "required":false,
+				  "state":false,
+				  "system":false,
+				  "type":"String"
+			   },
+			   {
+				  "DBType":"Long",
+				  "businessType":"LongInteger",
+				  "externalReferenceCode":"332520e2-04a2-2bcc-5a03-2d8ecfb8f240",
+				  "indexed":true,
+				  "indexedAsKeyword":false,
+				  "indexedLanguageId":"",
+				  "label":{
+					 "en_US":"Numero do Plano"
+				  },
+				  "listTypeDefinitionId":0,
+				  "name":"number",
+				  "objectFieldSettings":[
+					 
+				  ],
+				  "readOnly":"false",
+				  "readOnlyConditionExpression":"",
+				  "required":false,
+				  "state":false,
+				  "system":false,
+				  "type":"Long"
+			   },
+			   {
+				  "DBType":"Long",
+				  "businessType":"Attachment",
+				  "externalReferenceCode":"07d1d856-4898-2d72-93d6-f7f07c686c02",
+				  "indexed":true,
+				  "indexedAsKeyword":false,
+				  "indexedLanguageId":"en_US",
+				  "label":{
+					 "en_US":"Resultado"
+				  },
+				  "listTypeDefinitionId":0,
+				  "name":"result",
+				  "objectFieldSettings":[
+					 {
+						"name":"acceptedFileExtensions",
+						"value":"jpeg, jpg, pdf, png"
+					 },
+					 {
+						"name":"maximumFileSize",
+						"value":100
+					 },
+					 {
+						"name":"fileSource",
+						"value":"documentsAndMedia"
+					 }
+				  ],
+				  "readOnly":"false",
+				  "readOnlyConditionExpression":"",
+				  "required":false,
+				  "state":false,
+				  "system":false,
+				  "type":"Long"
+			   }
 			],
-			"objectLayouts": [],
-			"objectRelationships": [],
-			"objectValidationRules": [],
-			"objectViews": [],
-			"panelCategoryKey": "control_panel.object",
-			"parameterRequired": false,
-			"pluralLabel": {
-			  "en_US": "RayHealths"
+			"objectLayouts":[
+			   
+			],
+			"objectRelationships":[
+			   
+			],
+			"objectValidationRules":[
+			   
+			],
+			"objectViews":[
+			   
+			],
+			"panelCategoryKey":"control_panel.object",
+			"parameterRequired":false,
+			"pluralLabel":{
+			   "en_US":"RayHealths"
 			},
-			"portlet": true,
-			"restContextPath": "/o/c/rayhealths",
-			"scope": "company",
-			"status": {
-			  "code": 0,
-			  "label": "approved",
-			  "label_i18n": "Approved"
+			"portlet":true,
+			"restContextPath":"/o/c/rayhealths",
+			"scope":"company",
+			"status":{
+			   "code":0,
+			   "label":"approved",
+			   "label_i18n":"Approved"
 			},
-			"storageType": "default",
-			"system": false,
-			"titleObjectFieldName": "id"
-		  }
+			"storageType":"default",
+			"system":false,
+			"titleObjectFieldName":"id"
+		 }
 	]
 }
