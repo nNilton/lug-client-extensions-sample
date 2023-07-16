@@ -36,11 +36,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+
+import reactor.core.publisher.Mono;
+
+import reactor.util.retry.Retry;
 
 /**
  * @author Nilton Vieira
@@ -74,14 +83,20 @@ public class ExamResultRestController extends BaseRestController {
 	}
 
 	@PostMapping
-	public ResponseEntity<String> post(@RequestBody String json)
+	public ResponseEntity<String> post(
+			@AuthenticationPrincipal Jwt jwt, @RequestBody String json)
 		throws Exception {
 
+		_jwtToken = jwt.getTokenValue();
+
 		JSONObject template = new JSONObject(json);
+		JSONObject jsonObject = new JSONObject();
+
+		jsonObject.put("name", template.getString("userName"));
 
 		File tempOdtFinal = File.createTempFile("reportODTFinal", ".odt");
 
-		generateReport(template, tempOdtFinal);
+		generateReport(jsonObject, tempOdtFinal);
 
 		String tmpdir = System.getProperty("java.io.tmpdir");
 
@@ -116,15 +131,71 @@ public class ExamResultRestController extends BaseRestController {
 				HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		uploadToDocumentLibery(pdfFile);
+		Document document = uploadToDocumentLibery(pdfFile);
 
-		// updateObjectEntry
+		try {
+			updateObjectEntry(document, template);
+		}
+		catch (Exception exception) {
+			_log.debug(exception);
+		}
 
 		tempOdtFinal.delete();
 		pdfFile.delete();
 		System.out.println("End :: [generatePDF]");
 
 		return new ResponseEntity<>(json, HttpStatus.OK);
+	}
+
+	public void updateObjectEntry(Document document, JSONObject jsonObject) {
+		JSONObject objectEntryRayHealthJsonObject = jsonObject.getJSONObject(
+			"objectEntryDTORayHealth");
+
+		JSONObject jsonProperties =
+			objectEntryRayHealthJsonObject.getJSONObject("properties");
+
+		jsonProperties.put("result", document.getId());
+		jsonProperties.remove("examDate");
+
+		WebClient.Builder builder = WebClient.builder();
+
+		WebClient webClient = builder.baseUrl(
+			lxcDXPServerProtocol + "://" + lxcDXPMainDomain
+		).defaultHeader(
+			HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE
+		).defaultHeader(
+			HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE
+		).build();
+
+		webClient.patch(
+		).uri(
+			"/o/c/rayhealths/{examId}",
+			objectEntryRayHealthJsonObject.getLong("id")
+		).bodyValue(
+			jsonProperties.toString()
+		).header(
+			HttpHeaders.AUTHORIZATION, "Bearer " + _jwtToken
+		).exchangeToMono(
+			clientResponse -> {
+				HttpStatus httpStatus = clientResponse.statusCode();
+
+				if (httpStatus.is2xxSuccessful()) {
+					return clientResponse.bodyToMono(String.class);
+				}
+				else if (httpStatus.is4xxClientError()) {
+					if (_log.isInfoEnabled()) {
+						_log.info("Output: " + httpStatus.getReasonPhrase());
+					}
+				}
+
+				Mono<WebClientResponseException> mono =
+					clientResponse.createException();
+
+				return mono.flatMap(Mono::error);
+			}
+		).retryWhen(
+			Retry.max(1)
+		).subscribe();
 	}
 
 	public Document uploadToDocumentLibery(File file) throws Exception {
@@ -145,6 +216,8 @@ public class ExamResultRestController extends BaseRestController {
 
 	private static final Log _log = LogFactory.getLog(
 		ExamResultRestController.class);
+
+	private String _jwtToken;
 
 	@Value("${libreoffice.path}")
 	private String _libreOfficePath;
