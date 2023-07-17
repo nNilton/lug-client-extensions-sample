@@ -7,7 +7,7 @@ import { baseURL } from "../Start";
 const FormContainer = styled.form`
     display: flex;
     align-items: flex-end;
-    gap: 10px;
+    gap: 60px;
     flex-wrap: wrap;
     background-color: #fff;
     padding: 20px;
@@ -21,11 +21,20 @@ const InputArea = styled.div`
 `;
 
 const Input = styled.input`
-    width:120px;
+    width: auto;
     padding: 0 10px;
     border: 1px solid #bbb;
     border-radius: 5px;
     height: 40px;
+`;
+
+const Select = styled.select`
+    width: auto;
+    padding: 0 10px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    height: 40px;
+    background-color: white;
 `;
 
 const Label = styled.label``;
@@ -90,7 +99,14 @@ const Form = ({getExams, onEdit, setOnEdit}) => {
         <FormContainer ref={ref} onSubmit={handleSubmit}>
             <InputArea>
                 <Label>Exame</Label>
-                <Input name = "examName"/>
+                <Select name = "examName">
+                    <option key="1" value="covid">Covid</option>
+                    <option key="2" value="hemograma">Hemograma</option>
+                    <option key="3" value="glicemia">Glicemia</option>
+                    <option key="4" value="colesterol">Colesterol</option>
+                    <option key="5" value="eletrocardiograma">Eletrocardiograma</option>
+                    <option key="6" value="ecocardiograma">Ecocardiograma</option>
+                </Select>
             </InputArea>
 
             <InputArea>

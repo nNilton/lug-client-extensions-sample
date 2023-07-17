@@ -15,13 +15,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
 
 `;
 
 export const baseURL = "http://localhost:8080/o/c/rayhealths/";
 
-const Title = styled.h2``;
+const Title = styled.h2`
+  margin-top: 25px;
+`;
 
 
 function Start() {
