@@ -113,24 +113,6 @@ public class ExamResultRestController{
 
 		File pdfFile = new File(tmpdir, fileName.split(".odt")[0] + ".pdf");
 
-		FileInputStream fileInputStream = null;
-		InputStreamResource inputStreamResource = null;
-		HttpHeaders httpHeaders = new HttpHeaders();
-
-		try {
-			httpHeaders.setContentLength(pdfFile.length());
-
-			fileInputStream = new FileInputStream(pdfFile);
-
-			inputStreamResource = new InputStreamResource(fileInputStream);
-		}
-		catch (FileNotFoundException fileNotFoundException) {
-			return new ResponseEntity<>(
-				"Failed to generate response from PDF file " +
-					fileNotFoundException.toString(),
-				HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
 		Document document = uploadToDocumentLibery(pdfFile);
 
 		try {
