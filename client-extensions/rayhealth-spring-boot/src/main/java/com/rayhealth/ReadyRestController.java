@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RequestMapping("/ready")
 @RestController
-public class ReadyRestController extends BaseRestController {
+public class ReadyRestController {
 
 	@GetMapping
 	public String get() {

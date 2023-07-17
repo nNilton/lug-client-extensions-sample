@@ -24,6 +24,7 @@ import fr.opensagres.xdocreport.template.TemplateEngineKind;
 
 import java.io.*;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,7 +57,7 @@ import reactor.util.retry.Retry;
  */
 @RequestMapping("/object/action/exam/result")
 @RestController
-public class ExamResultRestController extends BaseRestController {
+public class ExamResultRestController{
 
 	public void generateReport(JSONObject template, File file)
 		throws Exception {
@@ -87,16 +88,15 @@ public class ExamResultRestController extends BaseRestController {
 			@AuthenticationPrincipal Jwt jwt, @RequestBody String json)
 		throws Exception {
 
-		_jwtToken = jwt.getTokenValue();
+		String jwtToken = jwt.getTokenValue();
+		JSONObject jsonObject = new JSONObject(json);
+		JSONObject template = new JSONObject();
 
-		JSONObject template = new JSONObject(json);
-		JSONObject jsonObject = new JSONObject();
-
-		jsonObject.put("name", template.getString("userName"));
+		template.put("name", jsonObject.getString("userName"));
 
 		File tempOdtFinal = File.createTempFile("reportODTFinal", ".odt");
 
-		generateReport(jsonObject, tempOdtFinal);
+		generateReport(template, tempOdtFinal);
 
 		String tmpdir = System.getProperty("java.io.tmpdir");
 
@@ -134,7 +134,7 @@ public class ExamResultRestController extends BaseRestController {
 		Document document = uploadToDocumentLibery(pdfFile);
 
 		try {
-			updateObjectEntry(document, template);
+			_updateExamResult.updateObjectEntry(document, jsonObject, jwtToken);
 		}
 		catch (Exception exception) {
 			_log.debug(exception);
@@ -145,57 +145,6 @@ public class ExamResultRestController extends BaseRestController {
 		System.out.println("End :: [generatePDF]");
 
 		return new ResponseEntity<>(json, HttpStatus.OK);
-	}
-
-	public void updateObjectEntry(Document document, JSONObject jsonObject) {
-		JSONObject objectEntryRayHealthJsonObject = jsonObject.getJSONObject(
-			"objectEntryDTORayHealth");
-
-		JSONObject jsonProperties =
-			objectEntryRayHealthJsonObject.getJSONObject("properties");
-
-		jsonProperties.put("result", document.getId());
-		jsonProperties.remove("examDate");
-
-		WebClient.Builder builder = WebClient.builder();
-
-		WebClient webClient = builder.baseUrl(
-			lxcDXPServerProtocol + "://" + lxcDXPMainDomain
-		).defaultHeader(
-			HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE
-		).defaultHeader(
-			HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE
-		).build();
-
-		webClient.patch(
-		).uri(
-			"/o/c/rayhealths/{examId}",
-			objectEntryRayHealthJsonObject.getLong("id")
-		).bodyValue(
-			jsonProperties.toString()
-		).header(
-			HttpHeaders.AUTHORIZATION, "Bearer " + _jwtToken
-		).exchangeToMono(
-			clientResponse -> {
-				HttpStatus httpStatus = clientResponse.statusCode();
-
-				if (httpStatus.is2xxSuccessful()) {
-					return clientResponse.bodyToMono(String.class);
-				}
-				else if (httpStatus.is4xxClientError()) {
-					if (_log.isInfoEnabled()) {
-						_log.info("Output: " + httpStatus.getReasonPhrase());
-					}
-				}
-
-				Mono<WebClientResponseException> mono =
-					clientResponse.createException();
-
-				return mono.flatMap(Mono::error);
-			}
-		).retryWhen(
-			Retry.max(1)
-		).subscribe();
 	}
 
 	public Document uploadToDocumentLibery(File file) throws Exception {
@@ -217,9 +166,8 @@ public class ExamResultRestController extends BaseRestController {
 	private static final Log _log = LogFactory.getLog(
 		ExamResultRestController.class);
 
-	private String _jwtToken;
+	private UpdateExamResult _updateExamResult = new UpdateExamResult();
 
 	@Value("${libreoffice.path}")
 	private String _libreOfficePath;
-
 }
