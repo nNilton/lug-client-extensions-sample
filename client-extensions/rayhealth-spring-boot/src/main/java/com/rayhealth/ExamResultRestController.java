@@ -24,7 +24,6 @@ import fr.opensagres.xdocreport.template.TemplateEngineKind;
 
 import java.io.*;
 
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,10 +33,7 @@ import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -45,19 +41,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
-
-import reactor.core.publisher.Mono;
-
-import reactor.util.retry.Retry;
 
 /**
  * @author Nilton Vieira
  */
 @RequestMapping("/object/action/exam/result")
 @RestController
-public class ExamResultRestController{
+public class ExamResultRestController {
 
 	public void generateReport(JSONObject template, File file)
 		throws Exception {
@@ -90,13 +80,10 @@ public class ExamResultRestController{
 
 		String jwtToken = jwt.getTokenValue();
 		JSONObject jsonObject = new JSONObject(json);
-		JSONObject template = new JSONObject();
-
-		template.put("name", jsonObject.getString("userName"));
 
 		File tempOdtFinal = File.createTempFile("reportODTFinal", ".odt");
 
-		generateReport(template, tempOdtFinal);
+		generateReport(getReplaceTemplate(jsonObject), tempOdtFinal);
 
 		String tmpdir = System.getProperty("java.io.tmpdir");
 
@@ -145,11 +132,39 @@ public class ExamResultRestController{
 		return documentResource.postSiteDocument(20119L, null, map);
 	}
 
+	private JSONObject getReplaceTemplate(JSONObject jsonObject) {
+		JSONObject template = new JSONObject();
+
+		template.put(
+			"date",
+			jsonObject.getJSONObject(
+				"originalObjectEntry"
+			).getString(
+				"statusDate"
+			));
+		template.put(
+			"exam",
+			jsonObject.getJSONObject(
+				"objectEntryDTORayHealth"
+			).getJSONObject(
+				"properties"
+			).getJSONObject(
+				"examName"
+			).getString(
+				"name"
+			));
+		template.put("id", String.valueOf(jsonObject.getLong("classPK")));
+		template.put("name", jsonObject.getString("userName"));
+
+		return template;
+	}
+
 	private static final Log _log = LogFactory.getLog(
 		ExamResultRestController.class);
 
-	private UpdateExamResult _updateExamResult = new UpdateExamResult();
-
 	@Value("${libreoffice.path}")
 	private String _libreOfficePath;
+
+	private final UpdateExamResult _updateExamResult = new UpdateExamResult();
+
 }
