@@ -6,6 +6,7 @@ rayhealth-spring-boot-oauth-application-user-agent:
     name: RayHealth Etc Spring Boot Spring Boot OAuth Application User Agent
     scopes:
         - C_RayHealth.everything
+        - Liferay.Headless.Delivery.everything
     type: oAuthApplicationUserAgent
 rayhealth-spring-boot-object-action-exam-result:
     name: RayHealth Etc Spring Boot Spring Boot Object Action Exam Result
